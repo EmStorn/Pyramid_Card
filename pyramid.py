@@ -102,6 +102,8 @@ class Game(object):
 
     # come gestire input ?
 
+    #just testing
+
 
 #create 40 instances of the Card Class and put them into a list
 cards = [Card(value, suits) for v in value for s in suits]
