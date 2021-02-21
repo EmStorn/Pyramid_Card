@@ -11,6 +11,7 @@ class Card(object):
         self.suit = suit
         self.covered = True
         self.card_name = f"{self.value} of {self.suit}"
+        #add image of card
     #Test to print (not working)
     def test(self):
         print(f"{self.value} of {self.suit}") #to understand why ot prints lists of value and suit and not just 1 result for created card
