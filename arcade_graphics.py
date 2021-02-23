@@ -61,7 +61,7 @@ class pyramid_game(arcade.Window):
         pass
 
 
-class playing_card(Card, arcade.Sprite): #multiple inheritance concept to be checked and fully understood
+class Playing_card(Card, arcade.Sprite): #multiple inheritance concept to be checked and fully understood
     # class that inherits from Card class and arcade sprite class
     def __init__ (self, suit, value, scale=1):
 
