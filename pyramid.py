@@ -3,15 +3,16 @@ suits = ["Denari", "Spade", "Coppe", "Bastoni"]
 value = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 import random
 
+
 #class that create object for cards, with value and suit
 class Card(object):
 
-    def __init__(self, value, suit):
+    def __init__(self, value, suit, scale=1):
         self.value = value
         self.suit = suit
         self.covered = True
         self.card_name = f"{self.value} of {self.suit}"
-        #add image of card
+
     #Test to print (not working)
     def test(self):
         print(f"{self.value} of {self.suit}") #to understand why ot prints lists of value and suit and not just 1 result for created card
@@ -98,6 +99,7 @@ class Game(object):
     def __init__(self):
         # se carte nel dizionario = 0 gioco vinto
         #se > 0 possibilita' di scegliere 2 carte da accoppiare
+        pass
 
     #impplementare funzione che controlla se ci sono mosse possibili
 

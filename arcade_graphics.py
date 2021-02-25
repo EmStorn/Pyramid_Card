@@ -45,11 +45,14 @@ class pyramid_game(arcade.Window):
         "function that starts the game"
         Deck.initial_deck = arcade.Spritelist()
         # understand how to use method in deck class that creates card and apply to this case
+        Deck.initial_deck.add_cards()
 
 
-    def on_draw(self):
+    def on_draw(self, Deck):
         # clear the screen
         arcade.start_render()
+        #draw cards
+        Deck.initial_deck.draw()
 
     def on_mouse_press(self, x, y, button, key_modifiers):
         pass
