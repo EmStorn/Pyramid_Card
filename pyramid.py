@@ -28,7 +28,7 @@ class Deck(object):
     def add_cards(self, value, suit): #function that creates cards, using Class Card
         for v in value:
             for s in suits:
-                created_card = Card(value, suit) #variable that stores the card
+                created_card = Card(v, s) #variable that stores the card
                 self.initial_deck.append(created_card)
 
     def shuffle_deck(self):
@@ -89,8 +89,8 @@ class Board(object):
         print(len(self.remaining_deck)) #should print 12 to be correct
         print(self.remaining_deck)
         print(self.pyramid_board['UB7.1'].covered)
-        #print(self.pyramid_board['UB7.1'].card_name)
-        #print(self.remaining_deck[3].card_name)
+        print(self.pyramid_board['UB7.1'].card_name)
+        print(self.remaining_deck[3].card_name)
         print(self.uncovered_additional_cards)
 
 

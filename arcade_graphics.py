@@ -1,5 +1,6 @@
 import arcade
-import pyramid
+from arcade import SpriteList
+from pyramid import *
 
 SCREEN_WIDTH = 1024
 SCREEN_HEIGHT = 768
@@ -37,15 +38,18 @@ class pyramid_game(arcade.Window):
     def __init__(self, Deck):
         super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
 
-        Deck.initial_deck = []
+        Deck.initial_deck = None #try to understand how to keep separate deck creation and render 
+
 
         arcade.set_background_color(arcade.color.AMAZON)
 
     def setup(self, Deck):
         "function that starts the game"
-        Deck.initial_deck = arcade.Spritelist()
+        #Deck.initial_deck = arcade.Spritelist()
         # understand how to use method in deck class that creates card and apply to this case
-        Deck.initial_deck.add_cards()
+        #Deck.initial_deck.add_cards(value, suits) # GIVES AN ERROR BEACUSE WE CALL THE METHOD ON A LIST DEFINIED IN INIT, NOT ON DECK OBJECT, HOW TO FIX ???
+        Deck.initial_deck = arcade.Spritelist()
+        Card.image_file_name = f":resources:images/cards/card{self.suit}{self.value}.png" #cards sprites to be created as png
 
 
     def on_draw(self, Deck):
@@ -64,20 +68,22 @@ class pyramid_game(arcade.Window):
         pass
 
 
-class Playing_card(Card, arcade.Sprite): #multiple inheritance concept to be checked and fully understood
+#class Playing_card(Card, arcade.Sprite): #multiple inheritance concept to be checked and fully understood
     # class that inherits from Card class and arcade sprite class
-    def __init__ (self, suit, value, scale=1):
+    #def __init__ (self, suit, value, scale=1):
 
-        self.image_file_name = f":resources:images/cards/card{self.suit}{self.value}.png" #cards sprites to be created as png
+        #self.image_file_name = f":resources:images/cards/card{self.suit}{self.value}.png" #cards sprites to be created as png
 
-        super().__init__(self.image_file_name, scale, hit_box_algorithm="None")
+        #super().__init__(self.image_file_name, scale, hit_box_algorithm="None")
 
 
 
 
 def main(): #to be moved after in game file
-    windows = pyramid_game()
-    windows.setup()
+    deck = Deck()
+    deck.add_cards(value, suits)
+    windows = pyramid_game(deck)
+    windows.setup(deck)
     arcade.run()
 
 main()
