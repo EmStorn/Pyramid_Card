@@ -1,24 +1,53 @@
 # we create a class for playing card which will have a value and a suit
-suits = ["Denari", "Spade", "Coppe", "Bastoni"]
+suits = ["Ori", "Spade", "Coppe", "Bastoni"]
 value = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+# Constants for sizing
+CARD_SCALE = 0.6
+
+# How big are the cards?
+CARD_WIDTH = 140 * CARD_SCALE
+CARD_HEIGHT = 190 * CARD_SCALE
+
+# How big is the mat we'll place the card on?
+MAT_PERCENT_OVERSIZE = 1.25
+MAT_HEIGHT = int(CARD_HEIGHT * MAT_PERCENT_OVERSIZE)
+MAT_WIDTH = int(CARD_WIDTH * MAT_PERCENT_OVERSIZE)
+
+# How much space do we leave as a gap between the mats?
+# Done as a percent of the mat size.
+VERTICAL_MARGIN_PERCENT = 0.10
+HORIZONTAL_MARGIN_PERCENT = 0.10
+
+# The Y of the bottom row (2 piles)
+BOTTOM_Y = MAT_HEIGHT / 2 + MAT_HEIGHT * VERTICAL_MARGIN_PERCENT
+
+# The X of where to start putting things on the left side
+START_X = MAT_WIDTH / 2 + MAT_WIDTH * HORIZONTAL_MARGIN_PERCENT
+
 import random
+import arcade
 
 
 #class that create object for cards, with value and suit
-class Card(object):
+class Card(arcade.Sprite):
 
     def __init__(self, value, suit, scale=1):
         self.value = value
         self.suit = suit
         self.covered = True
         self.card_name = f"{self.value} of {self.suit}"
+        self.image_file_name = f"images/cards/card{self.value}{self.suit}.png"
 
-    #Test to print (not working)
+
+        super().__init__(self.image_file_name, scale, hit_box_algorithm="None")
+
+    #Test to print
     def test(self):
-        print(f"{self.value} of {self.suit}") #to understand why ot prints lists of value and suit and not just 1 result for created card
+        print(f"{self.value} of {self.suit}")
 
 #class that creates a deck as a list
-class Deck(object):
+class Deck(Card):
 
     def __init__(self):
 
@@ -29,6 +58,7 @@ class Deck(object):
         for v in value:
             for s in suits:
                 created_card = Card(v, s) #variable that stores the card
+                created_card.position = START_X, BOTTOM_Y
                 self.initial_deck.append(created_card)
 
     def shuffle_deck(self):
@@ -107,22 +137,22 @@ class Game(object):
 
 
 #create 40 instances of the Card Class and put them into a list
-cards = [Card(value, suits) for v in value for s in suits]
+#cards = [Card(value, suits) for v in value for s in suits]
 #print(cards) #test if cards are in list
 #print(len(cards)) #should print 40 to be correct
-cards[3].test()
+#cards[3].test()
 print(',,'*10)
 #create an instance for the deck
-deck = Deck()
+#deck = Deck()
 #build the deck
-deck.add_cards(value, suits)
+#deck.add_cards(value, suits)
 #print(deck.initial_deck) #test if cards are in list
 #print(len(deck.initial_deck)) #test if correct amount of card was created, should be 40
 
-deck.shuffle_deck()
+#deck.shuffle_deck()
 #print(deck.initial_deck)
 
-board = Board(deck)
-board.turn_cards(cards)
-board.test_places()
-board.additional_cards(cards)
+#board = Board(deck)
+#board.turn_cards(cards)
+#board.test_places()
+#board.additional_cards(cards)

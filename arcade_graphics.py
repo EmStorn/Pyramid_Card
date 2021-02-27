@@ -38,21 +38,26 @@ class pyramid_game(arcade.Window):
     def __init__(self, Deck):
         super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
 
-        Deck.initial_deck = None #try to understand how to keep separate deck creation and render 
+        Deck.initial_deck = None #try to understand how to keep separate deck creation and render
 
 
         arcade.set_background_color(arcade.color.AMAZON)
+
+
 
     def setup(self, Deck):
         "function that starts the game"
         #Deck.initial_deck = arcade.Spritelist()
         # understand how to use method in deck class that creates card and apply to this case
         #Deck.initial_deck.add_cards(value, suits) # GIVES AN ERROR BEACUSE WE CALL THE METHOD ON A LIST DEFINIED IN INIT, NOT ON DECK OBJECT, HOW TO FIX ???
-        Deck.initial_deck = arcade.Spritelist()
-        Card.image_file_name = f":resources:images/cards/card{self.suit}{self.value}.png" #cards sprites to be created as png
+        deck = Deck()
+        deck.add_cards(value, suits)
+        Deck.initial_deck = arcade.SpriteList()
+        #deck.created_card.position = START_X, BOTTOM_Y
 
 
-    def on_draw(self, Deck):
+
+    def on_draw(self):
         # clear the screen
         arcade.start_render()
         #draw cards
@@ -80,10 +85,11 @@ class pyramid_game(arcade.Window):
 
 
 def main(): #to be moved after in game file
-    deck = Deck()
-    deck.add_cards(value, suits)
-    windows = pyramid_game(deck)
-    windows.setup(deck)
+
+    #deck = Deck()
+    #deck.add_cards(value, suits)
+    windows = pyramid_game(Deck)
+    windows.setup(Deck)
     arcade.run()
 
 main()
