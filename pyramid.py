@@ -3,7 +3,7 @@ suits = ["Ori", "Spade", "Coppe", "Bastoni"]
 value = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 # Constants for sizing
-CARD_SCALE = 0.6
+CARD_SCALE = 0.3
 
 # How big are the cards?
 CARD_WIDTH = 140 * CARD_SCALE
@@ -16,8 +16,8 @@ MAT_WIDTH = int(CARD_WIDTH * MAT_PERCENT_OVERSIZE)
 
 # How much space do we leave as a gap between the mats?
 # Done as a percent of the mat size.
-VERTICAL_MARGIN_PERCENT = 0.10
-HORIZONTAL_MARGIN_PERCENT = 0.10
+VERTICAL_MARGIN_PERCENT = 2
+HORIZONTAL_MARGIN_PERCENT = 1
 
 # The Y of the bottom row (2 piles)
 BOTTOM_Y = MAT_HEIGHT / 2 + MAT_HEIGHT * VERTICAL_MARGIN_PERCENT
@@ -56,7 +56,7 @@ class Deck(object):
     def add_cards(self, value, suit): #function that creates cards, using Class Card
         for v in value:
             for s in suits:
-                created_card = Card(v, s) #variable that stores the card
+                created_card = Card(v, s, CARD_SCALE) #variable that stores the card
                 created_card.position = START_X, BOTTOM_Y
                 self.initial_deck.append(created_card)
 

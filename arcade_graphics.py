@@ -7,11 +7,11 @@ SCREEN_HEIGHT = 768
 SCREEN_TITLE = "Pyramid: Best Game (The Dream !)"
 
 # Constants for sizing
-CARD_SCALE = 0.6
+CARD_SCALE = 0.2
 
 # How big are the cards?
-CARD_WIDTH = 140 * CARD_SCALE
-CARD_HEIGHT = 190 * CARD_SCALE
+CARD_WIDTH = 40 * CARD_SCALE
+CARD_HEIGHT = 90 * CARD_SCALE
 
 # How big is the mat we'll place the card on?
 MAT_PERCENT_OVERSIZE = 1.25
@@ -95,6 +95,6 @@ def main(): #to be moved after in game file
     windows = pyramid_game()
     windows.setup()
     arcade.run()
-    
+
 
 main()
