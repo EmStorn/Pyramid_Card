@@ -30,8 +30,8 @@ BOTTOM_Y = MAT_HEIGHT / 2 + MAT_HEIGHT * VERTICAL_MARGIN_PERCENT
 START_X = MAT_WIDTH / 2 + MAT_WIDTH * HORIZONTAL_MARGIN_PERCENT
 
 # Card constants
-CARD_VALUES = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
-CARD_SUITS = ["Clubs", "Hearts", "Spades", "Diamonds"]
+suits = ["Ori", "Spade", "Coppe", "Bastoni"]
+value = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 class pyramid_game(arcade.Window):
 
@@ -45,15 +45,17 @@ class pyramid_game(arcade.Window):
 
 
 
-    def setup(self, Deck):
+    def setup(self):
         "function that starts the game"
         #Deck.initial_deck = arcade.Spritelist()
         # understand how to use method in deck class that creates card and apply to this case
         #Deck.initial_deck.add_cards(value, suits) # GIVES AN ERROR BEACUSE WE CALL THE METHOD ON A LIST DEFINIED IN INIT, NOT ON DECK OBJECT, HOW TO FIX ???
-        deck = Deck()
-        deck.add_cards(value, suits)
+        cards = [Card(v, s) for v in value for s in suits]
+        self.deck = Deck()
+        self.deck.initial_deck = arcade.SpriteList()
+        self.deck.add_cards(value, suits)
         #deck.postion = START_X, BOTTOM_Y
-        deck.initial_deck = arcade.SpriteList()
+        #Deck.initial_deck = arcade.SpriteList()
         #deck.created_card.position = START_X, BOTTOM_Y
 
 
@@ -91,7 +93,8 @@ def main(): #to be moved after in game file
     #deck = Deck()
     #deck.add_cards(value, suits)
     windows = pyramid_game()
-    windows.setup(Deck)
+    windows.setup()
     arcade.run()
+    
 
 main()

@@ -39,7 +39,6 @@ class Card(arcade.Sprite):
         self.card_name = f"{self.value} of {self.suit}"
         self.image_file_name = f"images/cards/card{self.value}{self.suit}.png"
 
-
         super().__init__(self.image_file_name, scale, hit_box_algorithm="None")
 
     #Test to print
@@ -47,7 +46,7 @@ class Card(arcade.Sprite):
         print(f"{self.value} of {self.suit}")
 
 #class that creates a deck as a list
-class Deck(Card):
+class Deck(object):
 
     def __init__(self):
 
