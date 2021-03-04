@@ -70,6 +70,8 @@ class Board(object):
         self.covered_cards_in_pyramid = []
         self.uncovered_cards_in_pyramid = []
         self.uncovered_additional_cards = []
+        self.selected_cards = []
+        self.paired_cards = []
         self.pyramid_board = {}
 
         covered_cards_placeholders = ["B1.1", "B2.1", "B2.2", "B3.1", "B3.2", "B3.3",
@@ -105,6 +107,20 @@ class Board(object):
             pass
         else:
             self.uncovered_additional_cards.append(self.remaining_deck.pop())
+
+    #DEFINE A WAY TO TRACK SELECTED CARDS
+    # understand how to use on mouse press and realease function to perform selection and removal/return to original place
+    # to remember: rendered card are class aracde sprites (should have .value attribute ?) work from that      
+
+    def cards_value_check(self, Card):
+        total_value = sum(Card.value for Card in self.selected_cards)
+        if total_value == 10:
+            for Card in self.selected_cards:
+                self.paired_cards.append(self.selected_cards.pop())
+        else:
+            pass #not finished
+
+
 
 
     def test_places(self):
