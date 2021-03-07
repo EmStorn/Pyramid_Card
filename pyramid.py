@@ -3,7 +3,7 @@ suits = ["Ori", "Spade", "Coppe", "Bastoni"]
 value = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 # Constants for sizing
-CARD_SCALE = 0.3
+CARD_SCALE = 0.2
 
 # How big are the cards?
 CARD_WIDTH = 140 * CARD_SCALE
@@ -110,7 +110,7 @@ class Board(object):
 
     #DEFINE A WAY TO TRACK SELECTED CARDS
     # understand how to use on mouse press and realease function to perform selection and removal/return to original place
-    # to remember: rendered card are class aracde sprites (should have .value attribute ?) work from that      
+    # to remember: rendered card are class aracde sprites (should have .value attribute ?) work from that
 
     def cards_value_check(self, Card):
         total_value = sum(Card.value for Card in self.selected_cards)
