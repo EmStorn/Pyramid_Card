@@ -122,7 +122,10 @@ class pyramid_game(arcade.Window):
         self.deck.add_cards(value, suits)
         #self.deck.shuffle_deck() to be fixed
         self.board = Board(self.deck)
-        self.board.covered_cards_in_pyramid = arcade.SpriteList()
+        self.board.placing_cards(self.deck)
+        print(len(self.board.covered_cards_in_pyramid))
+        self.board.covered_cards_in_pyramid: arcade.SpriteList = arcade.SpriteList() #understand why after this line lines if printed is empty, this cause that sprotes need to be reappenden in the list to draw them
+        print(len(self.board.covered_cards_in_pyramid))
         self.board.uncovered_cards_in_pyramid = arcade.SpriteList()
 
 
@@ -195,6 +198,9 @@ class pyramid_game(arcade.Window):
         self.card_position_mat_list.append(pile_6_5)
         self.card_position_mat_list.append(pile_6_6)
 
+        self.board.pyramid_board['B1.1'].position = pile.position
+        self.board.covered_cards_in_pyramid.append(self.board.pyramid_board['B1.1'])
+
     def on_draw(self):
         # clear the screen
         arcade.start_render()
@@ -202,6 +208,7 @@ class pyramid_game(arcade.Window):
         self.card_position_mat_list.draw()
         #draw cards
         self.deck.initial_deck.draw()
+        self.board.covered_cards_in_pyramid.draw()
 
 
     def on_mouse_press(self, x, y, button, key_modifiers):

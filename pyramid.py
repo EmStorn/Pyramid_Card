@@ -74,6 +74,8 @@ class Board(object):
         self.paired_cards = []
         self.pyramid_board = {}
 
+    def placing_cards(self, Deck):
+
         covered_cards_placeholders = ["B1.1", "B2.1", "B2.2", "B3.1", "B3.2", "B3.3",
                                       "B4.1", "B4.2", "B4.3", "B4.4", "B5.1", "B5.2",
                                       "B5.3", "B5.4", "B5.5", "B6.1", "B6.2", "B6.3",
