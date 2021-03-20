@@ -25,13 +25,13 @@ VERTICAL_MARGIN_PERCENT = 2
 HORIZONTAL_MARGIN_PERCENT = 1
 
 # The Y of the bottom row (2 piles)
-BOTTOM_Y = 10 #MAT_HEIGHT / 2 + MAT_HEIGHT * VERTICAL_MARGIN_PERCENT
+BOTTOM_Y = 90 #MAT_HEIGHT / 2 + MAT_HEIGHT * VERTICAL_MARGIN_PERCENT
 
 # The X of where to start putting things on the left side
-START_X = 10 #MAT_WIDTH / 2 + MAT_WIDTH * HORIZONTAL_MARGIN_PERCENT
+START_X = 50 #MAT_WIDTH / 2 + MAT_WIDTH * HORIZONTAL_MARGIN_PERCENT
 
 # Mat positions for the pyramyd
-TOP_Y_B1_1 = SCREEN_HEIGHT - MAT_HEIGHT / 2 - MAT_HEIGHT / VERTICAL_MARGIN_PERCENT
+TOP_Y_B1_1 = SCREEN_HEIGHT - MAT_HEIGHT / 2 - (MAT_HEIGHT / VERTICAL_MARGIN_PERCENT) * 0.05
 LATERAL_X_B1_1 = SCREEN_WIDTH / 2 - MAT_WIDTH / 2
 
 TOP_Y_B2_1 = TOP_Y_B1_1 - MAT_HEIGHT / 1.5
@@ -94,6 +94,39 @@ LATERAL_X_B6_5 = LATERAL_X_B6_4 + MAT_WIDTH + (CARD_WIDTH * 0.15)
 TOP_Y_B6_6 = TOP_Y_B6_1
 LATERAL_X_B6_6 = LATERAL_X_B6_5 + MAT_WIDTH + (CARD_WIDTH * 0.15)
 
+TOP_Y_UB7_1 = TOP_Y_B6_1 - MAT_HEIGHT / 1.5
+LATERAL_X_UB7_1 = LATERAL_X_B6_1 - (MAT_WIDTH / 2) * 1.25
+
+TOP_Y_UB7_2 = TOP_Y_UB7_1
+LATERAL_X_UB7_2 = LATERAL_X_UB7_1 + MAT_WIDTH + (CARD_WIDTH * 0.15)
+
+TOP_Y_UB7_3 = TOP_Y_UB7_1
+LATERAL_X_UB7_3 = LATERAL_X_UB7_2 + MAT_WIDTH + (CARD_WIDTH * 0.15)
+
+TOP_Y_UB7_4 = TOP_Y_UB7_1
+LATERAL_X_UB7_4 = LATERAL_X_UB7_3 + MAT_WIDTH + (CARD_WIDTH * 0.15)
+
+TOP_Y_UB7_5 = TOP_Y_UB7_1
+LATERAL_X_UB7_5 = LATERAL_X_UB7_4 + MAT_WIDTH + (CARD_WIDTH * 0.15)
+
+TOP_Y_UB7_6 = TOP_Y_UB7_1
+LATERAL_X_UB7_6 = LATERAL_X_UB7_5 + MAT_WIDTH + (CARD_WIDTH * 0.15)
+
+TOP_Y_UB7_7 = TOP_Y_UB7_1
+LATERAL_X_UB7_7 = LATERAL_X_UB7_6 + MAT_WIDTH + (CARD_WIDTH * 0.15)
+
+TOP_Y_AD_1 = BOTTOM_Y + VERTICAL_MARGIN_PERCENT + MAT_HEIGHT
+LATERAL_X_AD_1 = START_X
+
+TOP_Y_AD_2 = TOP_Y_AD_1 + VERTICAL_MARGIN_PERCENT + MAT_HEIGHT
+LATERAL_X_AD_2 = START_X
+
+TOP_Y_AD_3 = TOP_Y_AD_2 + VERTICAL_MARGIN_PERCENT + MAT_HEIGHT
+LATERAL_X_AD_3 = START_X
+
+TOP_Y_AD_4 = TOP_Y_AD_3 + VERTICAL_MARGIN_PERCENT + MAT_HEIGHT
+LATERAL_X_AD_4 = START_X
+
 
 
 # Card constants
@@ -116,17 +149,26 @@ class pyramid_game(arcade.Window):
         #Deck.initial_deck = arcade.Spritelist()
         # understand how to use method in deck class that creates card and apply to this case
         #Deck.initial_deck.add_cards(value, suits) # GIVES AN ERROR BEACUSE WE CALL THE METHOD ON A LIST DEFINIED IN INIT, NOT ON DECK OBJECT, HOW TO FIX ???
-        cards = [Card(v, s) for v in value for s in suits]
+        self.cards = [Card(v, s) for v in value for s in suits]
         self.deck = Deck()
         self.deck.initial_deck = arcade.SpriteList()
         self.deck.add_cards(value, suits)
         #self.deck.shuffle_deck() to be fixed
-        self.board = Board(self.deck)
+        self.board = Board(self.deck, self.cards)
         self.board.placing_cards(self.deck)
-        print(len(self.board.covered_cards_in_pyramid))
-        self.board.covered_cards_in_pyramid: arcade.SpriteList = arcade.SpriteList() #understand why after this line lines if printed is empty, this cause that sprotes need to be reappenden in the list to draw them
-        print(len(self.board.covered_cards_in_pyramid))
-        self.board.uncovered_cards_in_pyramid = arcade.SpriteList()
+
+        #print(len(self.board.covered_cards_in_pyramid))
+        #self.board.covered_cards_in_pyramid = arcade.SpriteList() #understand why after this line lines if printed is empty, this cause that sprotes need to be reappenden in the list to draw them
+        #print(len(self.board.covered_cards_in_pyramid))
+        #self.board.uncovered_cards_in_pyramid = arcade.SpriteList()
+        #print(len(self.board.covered_cards_in_pyramid))
+
+        self.covered_pyramid_sprites = arcade.SpriteList()
+        self.covered_pyramid_sprites.extend(self.board.covered_cards_in_pyramid)
+
+        self.uncovered_pyramid_sprites = arcade.SpriteList()
+        self.uncovered_pyramid_sprites.extend(self.board.uncovered_cards_in_pyramid)
+
 
 
 
@@ -155,6 +197,20 @@ class pyramid_game(arcade.Window):
         pile_6_4 = arcade.SpriteSolidColor(MAT_WIDTH, MAT_HEIGHT, arcade.csscolor.DARK_OLIVE_GREEN)
         pile_6_5 = arcade.SpriteSolidColor(MAT_WIDTH, MAT_HEIGHT, arcade.csscolor.DARK_OLIVE_GREEN)
         pile_6_6 = arcade.SpriteSolidColor(MAT_WIDTH, MAT_HEIGHT, arcade.csscolor.DARK_OLIVE_GREEN)
+        pile_7_1 = arcade.SpriteSolidColor(MAT_WIDTH, MAT_HEIGHT, arcade.csscolor.DARK_OLIVE_GREEN)
+        pile_7_2 = arcade.SpriteSolidColor(MAT_WIDTH, MAT_HEIGHT, arcade.csscolor.DARK_OLIVE_GREEN)
+        pile_7_3 = arcade.SpriteSolidColor(MAT_WIDTH, MAT_HEIGHT, arcade.csscolor.DARK_OLIVE_GREEN)
+        pile_7_4 = arcade.SpriteSolidColor(MAT_WIDTH, MAT_HEIGHT, arcade.csscolor.DARK_OLIVE_GREEN)
+        pile_7_5 = arcade.SpriteSolidColor(MAT_WIDTH, MAT_HEIGHT, arcade.csscolor.DARK_OLIVE_GREEN)
+        pile_7_6 = arcade.SpriteSolidColor(MAT_WIDTH, MAT_HEIGHT, arcade.csscolor.DARK_OLIVE_GREEN)
+        pile_7_6 = arcade.SpriteSolidColor(MAT_WIDTH, MAT_HEIGHT, arcade.csscolor.DARK_OLIVE_GREEN)
+        pile_7_7 = arcade.SpriteSolidColor(MAT_WIDTH, MAT_HEIGHT, arcade.csscolor.DARK_OLIVE_GREEN)
+
+        pile_ad_1 = arcade.SpriteSolidColor(MAT_WIDTH, MAT_HEIGHT, arcade.csscolor.DARK_OLIVE_GREEN)
+        pile_ad_2 = arcade.SpriteSolidColor(MAT_WIDTH, MAT_HEIGHT, arcade.csscolor.DARK_OLIVE_GREEN)
+        pile_ad_3 = arcade.SpriteSolidColor(MAT_WIDTH, MAT_HEIGHT, arcade.csscolor.DARK_OLIVE_GREEN)
+        pile_ad_4 = arcade.SpriteSolidColor(MAT_WIDTH, MAT_HEIGHT, arcade.csscolor.DARK_OLIVE_GREEN)
+
         pile.position = LATERAL_X_B1_1, TOP_Y_B1_1
         pile_2_1.position = LATERAL_X_B2_1, TOP_Y_B2_1
         pile_2_2.position = LATERAL_X_B2_2, TOP_Y_B2_2
@@ -176,6 +232,20 @@ class pyramid_game(arcade.Window):
         pile_6_4.position = LATERAL_X_B6_4, TOP_Y_B6_4
         pile_6_5.position = LATERAL_X_B6_5, TOP_Y_B6_5
         pile_6_6.position = LATERAL_X_B6_6, TOP_Y_B6_6
+
+        pile_7_1.position = LATERAL_X_UB7_1, TOP_Y_UB7_1
+        pile_7_2.position = LATERAL_X_UB7_2, TOP_Y_UB7_2
+        pile_7_3.position = LATERAL_X_UB7_3, TOP_Y_UB7_3
+        pile_7_4.position = LATERAL_X_UB7_4, TOP_Y_UB7_4
+        pile_7_5.position = LATERAL_X_UB7_5, TOP_Y_UB7_5
+        pile_7_6.position = LATERAL_X_UB7_6, TOP_Y_UB7_6
+        pile_7_7.position = LATERAL_X_UB7_7, TOP_Y_UB7_7
+
+        pile_ad_1.position = LATERAL_X_AD_1, TOP_Y_AD_1
+        pile_ad_2.position = LATERAL_X_AD_2, TOP_Y_AD_2
+        pile_ad_3.position = LATERAL_X_AD_3, TOP_Y_AD_3
+        pile_ad_4.position = LATERAL_X_AD_4, TOP_Y_AD_4
+
         self.card_position_mat_list.append(pile)
         self.card_position_mat_list.append(pile_2_1)
         self.card_position_mat_list.append(pile_2_2)
@@ -197,9 +267,52 @@ class pyramid_game(arcade.Window):
         self.card_position_mat_list.append(pile_6_4)
         self.card_position_mat_list.append(pile_6_5)
         self.card_position_mat_list.append(pile_6_6)
+        self.card_position_mat_list.append(pile_7_1)
+        self.card_position_mat_list.append(pile_7_2)
+        self.card_position_mat_list.append(pile_7_3)
+        self.card_position_mat_list.append(pile_7_4)
+        self.card_position_mat_list.append(pile_7_5)
+        self.card_position_mat_list.append(pile_7_6)
+        self.card_position_mat_list.append(pile_7_7)
 
-        self.board.pyramid_board['B1.1'].position = pile.position
-        self.board.covered_cards_in_pyramid.append(self.board.pyramid_board['B1.1'])
+        self.card_position_mat_list.append(pile_ad_1)
+        self.card_position_mat_list.append(pile_ad_2)
+        self.card_position_mat_list.append(pile_ad_3)
+        self.card_position_mat_list.append(pile_ad_4)
+
+        self.covered_pyramid_sprites[0].position = pile.position
+        self.covered_pyramid_sprites[1].position = pile_2_1.position
+        self.covered_pyramid_sprites[2].position = pile_2_2.position
+        self.covered_pyramid_sprites[3].position = pile_3_1.position
+        self.covered_pyramid_sprites[4].position = pile_3_2.position
+        self.covered_pyramid_sprites[5].position = pile_3_3.position
+        self.covered_pyramid_sprites[6].position = pile_4_1.position
+        self.covered_pyramid_sprites[7].position = pile_4_2.position
+        self.covered_pyramid_sprites[8].position = pile_4_3.position
+        self.covered_pyramid_sprites[9].position = pile_4_4.position
+        self.covered_pyramid_sprites[10].position = pile_5_1.position
+        self.covered_pyramid_sprites[11].position = pile_5_2.position
+        self.covered_pyramid_sprites[12].position = pile_5_3.position
+        self.covered_pyramid_sprites[13].position = pile_5_4.position
+        self.covered_pyramid_sprites[14].position = pile_5_5.position
+        self.covered_pyramid_sprites[15].position = pile_6_1.position
+        self.covered_pyramid_sprites[16].position = pile_6_2.position
+        self.covered_pyramid_sprites[17].position = pile_6_3.position
+        self.covered_pyramid_sprites[18].position = pile_6_4.position
+        self.covered_pyramid_sprites[19].position = pile_6_5.position
+        self.covered_pyramid_sprites[20].position = pile_6_6.position
+
+        self.uncovered_pyramid_sprites[0].position = pile_7_1.position
+        self.uncovered_pyramid_sprites[1].position = pile_7_2.position
+        self.uncovered_pyramid_sprites[2].position = pile_7_3.position
+        self.uncovered_pyramid_sprites[3].position = pile_7_4.position
+        self.uncovered_pyramid_sprites[4].position = pile_7_5.position
+        self.uncovered_pyramid_sprites[5].position = pile_7_6.position
+        self.uncovered_pyramid_sprites[6].position = pile_7_7.position
+
+
+        #self.board.pyramid_board['B1.1'].position = pile.position
+        #self.board.covered_cards_in_pyramid.append(self.board.pyramid_board['B1.1'])
 
     def on_draw(self):
         # clear the screen
@@ -208,14 +321,24 @@ class pyramid_game(arcade.Window):
         self.card_position_mat_list.draw()
         #draw cards
         self.deck.initial_deck.draw()
-        self.board.covered_cards_in_pyramid.draw()
+        #self.board.covered_cards_in_pyramid.draw()
+        self.covered_pyramid_sprites.draw()
+        self.uncovered_pyramid_sprites.draw()
 
 
     def on_mouse_press(self, x, y, button, key_modifiers):
-        pass
+        #pass
+        selection = arcade.get_sprites_at_point((x, y), self.uncovered_pyramid_sprites)
+        self.board.selected_cards.append(selection)
+        print(len(self.board.selected_cards))
+        print(self.board.selected_cards)
 
     def on_mouse_release(self, x: float, y: float, button: int, modifiers: int):
         pass
+        if len(self.board.selected_cards) <= 2:
+            self.board.cards_value_check(self.deck)
+        else:
+            self.board.selected_cards = []
 
     def on_mouse_motion(self, x: float, y: float, dx: float, dy: float):
         pass

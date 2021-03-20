@@ -60,13 +60,14 @@ class Deck(object):
                 created_card.position = START_X, BOTTOM_Y
                 self.initial_deck.append(created_card)
 
+
     def shuffle_deck(self):
         random.shuffle(self.initial_deck)
 
 # class that creates the board and pyramid shape
 class Board(object):
 
-    def __init__(self, Deck):
+    def __init__(self, Deck, Card):
         self.covered_cards_in_pyramid = []
         self.uncovered_cards_in_pyramid = []
         self.uncovered_additional_cards = []
@@ -115,12 +116,12 @@ class Board(object):
     # to remember: rendered card are class aracde sprites (should have .value attribute ?) work from that
 
     def cards_value_check(self, Card):
-        total_value = sum(Card.value for Card in self.selected_cards)
+        total_value = sum(Card.value for card in self.selected_cards)
         if total_value == 10:
-            for Card in self.selected_cards:
+            for card in self.selected_cards:
                 self.paired_cards.append(self.selected_cards.pop())
         else:
-            pass #not finished
+            self.selected_cards = []
 
 
 
