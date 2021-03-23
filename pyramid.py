@@ -48,7 +48,7 @@ class Card(arcade.Sprite):
 #class that creates a deck as a list
 class Deck(object):
 
-    def __init__(self):
+    def __init__(self, Card):
 
         self.initial_deck = []
 
@@ -59,6 +59,7 @@ class Deck(object):
                 created_card = Card(v, s, CARD_SCALE) #variable that stores the card
                 created_card.position = START_X, BOTTOM_Y
                 self.initial_deck.append(created_card)
+                print(created_card.value)
 
 
     def shuffle_deck(self):
@@ -115,8 +116,9 @@ class Board(object):
     # understand how to use on mouse press and realease function to perform selection and removal/return to original place
     # to remember: rendered card are class aracde sprites (should have .value attribute ?) work from that
 
-    def cards_value_check(self, Card):
-        total_value = sum(Card.value for card in self.selected_cards)
+    def cards_value_check(self):
+        #total_value = sum(Card.value for Card in self.selected_cards)
+        total_value = (self.selected_cards[0].value) + (self.selected_cards[1].value)
         if total_value == 10:
             for card in self.selected_cards:
                 self.paired_cards.append(self.selected_cards.pop())

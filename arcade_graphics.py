@@ -150,7 +150,7 @@ class pyramid_game(arcade.Window):
         # understand how to use method in deck class that creates card and apply to this case
         #Deck.initial_deck.add_cards(value, suits) # GIVES AN ERROR BEACUSE WE CALL THE METHOD ON A LIST DEFINIED IN INIT, NOT ON DECK OBJECT, HOW TO FIX ???
         self.cards = [Card(v, s) for v in value for s in suits]
-        self.deck = Deck()
+        self.deck = Deck(self.cards)
         self.deck.initial_deck = arcade.SpriteList()
         self.deck.add_cards(value, suits)
         #self.deck.shuffle_deck() to be fixed
@@ -333,10 +333,11 @@ class pyramid_game(arcade.Window):
         print(len(self.board.selected_cards))
         print(self.board.selected_cards)
 
+
     def on_mouse_release(self, x: float, y: float, button: int, modifiers: int):
         pass
         if len(self.board.selected_cards) <= 2:
-            self.board.cards_value_check(self.deck)
+            self.board.cards_value_check()
         else:
             self.board.selected_cards = []
 
