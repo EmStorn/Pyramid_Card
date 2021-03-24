@@ -328,6 +328,8 @@ class pyramid_game(arcade.Window):
 
 
     def on_mouse_press(self, x, y, button, key_modifiers):
+        print(len(self.uncovered_pyramid_sprites), 'in uncovered_pyramid_sprites')
+        print(len(self.board.uncovered_cards_in_pyramid), 'in uncovered cards in pyramid')
         #pass
         selection = arcade.get_sprites_at_point((x, y), self.uncovered_pyramid_sprites)
         self.board.selected_cards.append(selection[-1])
@@ -341,14 +343,19 @@ class pyramid_game(arcade.Window):
 
 
     def on_mouse_release(self, x: float, y: float, button: int, modifiers: int):
-        pass
+
         if len(self.board.selected_cards) <= 2:
             self.board.cards_value_check()
-            for card in self.board.paired_cards:
-                Card.position = LATERAL_X_PAIRED, TOP_Y_PAIRED
-        else:
+            for Card in self.board.paired_cards:
+                Card.set_position(LATERAL_X_PAIRED, TOP_Y_PAIRED) #= LATERAL_X_PAIRED, TOP_Y_PAIRED
+                #Card.update_location() needed ?
+
+            else:
             #self.board.selected_cards = []
-            pass
+                pass
+
+        print(len(self.uncovered_pyramid_sprites), 'in uncovered_pyramid_sprites')
+        print(len(self.board.uncovered_cards_in_pyramid), 'in uncovered cards in pyramid')
 
     def on_mouse_motion(self, x: float, y: float, dx: float, dy: float):
         pass
