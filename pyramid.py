@@ -117,13 +117,14 @@ class Board(object):
     # to remember: rendered card are class aracde sprites (should have .value attribute ?) work from that
 
     def cards_value_check(self):
-        #total_value = sum(Card.value for Card in self.selected_cards)
-        total_value = (self.selected_cards[0].value) + (self.selected_cards[1].value)
+        total_value = (Card.value for Card in self.selected_cards)
         if total_value == 10:
             for card in self.selected_cards:
-                self.paired_cards.append(self.selected_cards.pop())
+                self.paired_cards.append(self.selected_cards.pop(0, 1))
         else:
-            self.selected_cards = []
+            pass
+            #self.selected_cards = []
+
 
 
 

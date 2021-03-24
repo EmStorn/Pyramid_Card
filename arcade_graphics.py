@@ -127,6 +127,9 @@ LATERAL_X_AD_3 = START_X
 TOP_Y_AD_4 = TOP_Y_AD_3 + VERTICAL_MARGIN_PERCENT + MAT_HEIGHT
 LATERAL_X_AD_4 = START_X
 
+TOP_Y_PAIRED = 90
+LATERAL_X_PAIRED = 1000
+
 
 
 # Card constants
@@ -157,17 +160,13 @@ class pyramid_game(arcade.Window):
         self.board = Board(self.deck, self.cards)
         self.board.placing_cards(self.deck)
 
-        #print(len(self.board.covered_cards_in_pyramid))
-        #self.board.covered_cards_in_pyramid = arcade.SpriteList() #understand why after this line lines if printed is empty, this cause that sprotes need to be reappenden in the list to draw them
-        #print(len(self.board.covered_cards_in_pyramid))
-        #self.board.uncovered_cards_in_pyramid = arcade.SpriteList()
-        #print(len(self.board.covered_cards_in_pyramid))
-
         self.covered_pyramid_sprites = arcade.SpriteList()
         self.covered_pyramid_sprites.extend(self.board.covered_cards_in_pyramid)
 
         self.uncovered_pyramid_sprites = arcade.SpriteList()
         self.uncovered_pyramid_sprites.extend(self.board.uncovered_cards_in_pyramid)
+
+        self.paired_cards = arcade.SpriteList()
 
 
 
@@ -325,21 +324,31 @@ class pyramid_game(arcade.Window):
         self.covered_pyramid_sprites.draw()
         self.uncovered_pyramid_sprites.draw()
 
+        self.paired_cards.draw()
+
 
     def on_mouse_press(self, x, y, button, key_modifiers):
         #pass
         selection = arcade.get_sprites_at_point((x, y), self.uncovered_pyramid_sprites)
-        self.board.selected_cards.append(selection)
-        print(len(self.board.selected_cards))
-        print(self.board.selected_cards)
+        self.board.selected_cards.append(selection[-1])
+        print(len(self.board.selected_cards), 'items in selected list')
+        print(self.board.selected_cards, 'selected card')
+        print(self.uncovered_pyramid_sprites[0], 'first acrd in list')
+        print(self.uncovered_pyramid_sprites[0].value)
+        print(self.board.selected_cards[-1].value)
+        for card in self.board.selected_cards:
+            print(card.value, 'value of item selected')
 
 
     def on_mouse_release(self, x: float, y: float, button: int, modifiers: int):
         pass
         if len(self.board.selected_cards) <= 2:
             self.board.cards_value_check()
+            for card in self.board.paired_cards:
+                Card.position = LATERAL_X_PAIRED, TOP_Y_PAIRED
         else:
-            self.board.selected_cards = []
+            #self.board.selected_cards = []
+            pass
 
     def on_mouse_motion(self, x: float, y: float, dx: float, dy: float):
         pass
