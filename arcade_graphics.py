@@ -346,7 +346,7 @@ class pyramid_game(arcade.Window):
 
         if len(self.board.selected_cards) <= 2:
             self.board.cards_value_check()
-            for Card in self.board.paired_cards:
+            for Card in self.board.paired_cards: #execute the following line only if value check is positive (idea use true false)
                 Card.set_position(LATERAL_X_PAIRED, TOP_Y_PAIRED) #= LATERAL_X_PAIRED, TOP_Y_PAIRED
                 #Card.update_location() needed ?
 
