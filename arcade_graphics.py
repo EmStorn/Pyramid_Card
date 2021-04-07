@@ -345,14 +345,19 @@ class pyramid_game(arcade.Window):
     def on_mouse_release(self, x: float, y: float, button: int, modifiers: int):
 
         if len(self.board.selected_cards) <= 2:
-            self.board.cards_value_check()
-            for Card in self.board.paired_cards: #execute the following line only if value check is positive (idea use true false)
-                Card.set_position(LATERAL_X_PAIRED, TOP_Y_PAIRED) #= LATERAL_X_PAIRED, TOP_Y_PAIRED
-                #Card.update_location() needed ?
+            self.board.cards_value_check(self.board)
+            if self.board.checked_value == True:
+                print(len(self.board.paired_cards), 'in board paired cards')
+                print(self.board.checked_value)
+                for Card in self.board.paired_cards: #execute the following line only if value check is positive (idea use true false)
+                    Card.set_position(LATERAL_X_PAIRED, TOP_Y_PAIRED) #= LATERAL_X_PAIRED, TOP_Y_PAIRED
+                self.board.checked_value = False
+                print(self.board.checked_value)
+                    #Card.update_location() needed ?
 
-            else:
-            #self.board.selected_cards = []
-                pass
+        else:
+            self.board.selected_cards = []
+
 
         print(len(self.uncovered_pyramid_sprites), 'in uncovered_pyramid_sprites')
         print(len(self.board.uncovered_cards_in_pyramid), 'in uncovered cards in pyramid')

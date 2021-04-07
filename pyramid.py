@@ -75,6 +75,7 @@ class Board(object):
         self.selected_cards = []
         self.paired_cards = []
         self.pyramid_board = {}
+        self.checked_value = False
 
     def placing_cards(self, Deck):
 
@@ -116,12 +117,18 @@ class Board(object):
     # understand how to use on mouse press and realease function to perform selection and removal/return to original place
     # to remember: rendered card are class aracde sprites (should have .value attribute ?) work from that
 
-    def cards_value_check(self):
+    def cards_value_check(self, Board):
         total_value = sum(Card.value for Card in self.selected_cards)
         print(total_value)
         if total_value == 10:
             for card in self.selected_cards:
-                self.paired_cards.append(self.selected_cards.pop())
+                if self.selected_cards[0] != self.selected_cards[1]:
+                    self.paired_cards.append(self.selected_cards.pop(0))
+                    self.paired_cards.append(self.selected_cards.pop(0))
+
+                else:
+                    self.selected_cards = []
+            self.checked_value = True
         else:
             pass
             #self.selected_cards = []
