@@ -159,6 +159,7 @@ class pyramid_game(arcade.Window):
         #self.deck.shuffle_deck() to be fixed
         self.board = Board(self.deck, self.cards)
         self.board.placing_cards(self.deck)
+        self.board.assign_position(self.deck)
 
         self.covered_pyramid_sprites = arcade.SpriteList()
         self.covered_pyramid_sprites.extend(self.board.covered_cards_in_pyramid)
@@ -333,6 +334,7 @@ class pyramid_game(arcade.Window):
         #pass
         selection = arcade.get_sprites_at_point((x, y), self.uncovered_pyramid_sprites)
         self.board.selected_cards.append(selection[-1])
+        print(self.board.selected_cards[-1].position_in_list)
         print(len(self.board.selected_cards), 'items in selected list')
         print(self.board.selected_cards, 'selected card')
         print(self.uncovered_pyramid_sprites[0], 'first acrd in list')
@@ -350,7 +352,8 @@ class pyramid_game(arcade.Window):
                 print(len(self.board.paired_cards), 'in board paired cards')
                 print(self.board.checked_value)
                 for Card in self.board.paired_cards: #execute the following line only if value check is positive (idea use true false)
-                    Card.set_position(LATERAL_X_PAIRED, TOP_Y_PAIRED) #= LATERAL_X_PAIRED, TOP_Y_PAIRED
+                    Card.set_position(LATERAL_X_PAIRED, TOP_Y_PAIRED)
+                    #Card.self.uncovered_pyramid_sprites.pop()
                 self.board.checked_value = False
                 print(self.board.checked_value)
                     #Card.update_location() needed ?

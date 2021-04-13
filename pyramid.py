@@ -60,7 +60,7 @@ class Deck(object):
                 created_card.position = START_X, BOTTOM_Y
                 self.initial_deck.append(created_card)
                 print(created_card.value)
-
+        
 
     def shuffle_deck(self):
         random.shuffle(self.initial_deck)
@@ -78,6 +78,8 @@ class Board(object):
         self.checked_value = False
 
     def placing_cards(self, Deck):
+        # Take cards from initial deck created and assign them to 2 lists
+        #covered and uncovered cards (next method will give position to those cards)
 
         covered_cards_placeholders = ["B1.1", "B2.1", "B2.2", "B3.1", "B3.2", "B3.3",
                                       "B4.1", "B4.2", "B4.3", "B4.4", "B5.1", "B5.2",
@@ -96,6 +98,24 @@ class Board(object):
 
         #create the part of deck that will be placed down the pyramid
         self.remaining_deck = Deck.initial_deck
+
+    def assign_position(self, Deck):
+        # for each cardse in the 2 previously created lists, give as attribute an unique position
+        # random position of cards is granted in method used in deck class
+        covered_cards_list = ["B1.1", "B2.1", "B2.2", "B3.1", "B3.2", "B3.3",
+                              "B4.1", "B4.2", "B4.3", "B4.4", "B5.1", "B5.2",
+                              "B5.3", "B5.4", "B5.5", "B6.1", "B6.2", "B6.3",
+                              "B6.4", "B6.5", "B6.6"]
+        uncovered_cards_list = ["UB7.1", "UB7.2", "UB7.3", "UB7.4", "UB7.5",
+                                "UB7.6", "UB7.7"]
+
+        for i in self.covered_cards_in_pyramid:
+            for c in covered_cards_list:
+                i.position_in_list = c
+
+        for j in self.uncovered_cards_in_pyramid:
+            for d in uncovered_cards_list:
+                j.position_in_list = d
 
 
     def turn_cards(self, Card):
