@@ -356,10 +356,18 @@ class pyramid_game(arcade.Window):
                     #Card.self.uncovered_pyramid_sprites.pop()
                 self.board.checked_value = False
                 print(self.board.checked_value)
-                    #Card.update_location() needed ?
+
+            else:
+                pass
 
         else:
             self.board.selected_cards = []
+
+        for c in self.board.paired_cards:
+            print(c.position_in_list, 'poaition in list')
+            print(self.board.paired_cards(0).position_in_list, self.board.paired_cards(1).position_in_list, 'test')
+
+
 
 
         print(len(self.uncovered_pyramid_sprites), 'in uncovered_pyramid_sprites')

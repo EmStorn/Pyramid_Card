@@ -60,7 +60,7 @@ class Deck(object):
                 created_card.position = START_X, BOTTOM_Y
                 self.initial_deck.append(created_card)
                 print(created_card.value)
-        
+
 
     def shuffle_deck(self):
         random.shuffle(self.initial_deck)
@@ -138,6 +138,7 @@ class Board(object):
     # to remember: rendered card are class aracde sprites (should have .value attribute ?) work from that
 
     def cards_value_check(self, Board):
+        # method that checks if we selected 1 or 2 or more cards, and check value.
         total_value = sum(Card.value for Card in self.selected_cards)
         print(total_value)
         if total_value == 10:
@@ -152,6 +153,9 @@ class Board(object):
         else:
             pass
             #self.selected_cards = []
+
+    def card_position_check(self, Board):
+        pass            
 
 
 
